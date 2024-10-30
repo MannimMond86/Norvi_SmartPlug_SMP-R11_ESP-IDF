@@ -1,7 +1,14 @@
 # Build files
 build/
+
 cmake-build-debug/
 cmake-build-release/
+sdkconfig
+sdkconfig.old
+
+# Test folder
+backup/
+9600/
 
 # IDE files
 .vscode/
@@ -12,4 +19,3 @@ cmake-build-release/
 *.tmp
 *.swp
 
-backup/

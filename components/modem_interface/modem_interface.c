@@ -65,3 +65,17 @@ esp_err_t modem_check_network_registration() {
     return ESP_FAIL;
 }
 
+// Example AT Command function for network registration
+esp_err_t modem_add_network_apn() {
+    //char command[50];
+    //const char *apn = "wsim";
+    //snprintf(command, sizeof(command), "AT+CGDCONT=1,\"IP\",\"%s\"\r\n", apn);
+    //modem_send_command(strlen(*command));
+    modem_send_command("AT+CGDCONT=1,\"IP\",\"wsim\"\r\n");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here (parse "+CGDCONT:" etc.)
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}

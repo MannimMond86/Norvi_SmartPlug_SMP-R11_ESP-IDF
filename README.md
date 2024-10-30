@@ -3,6 +3,12 @@
 (Erstlellungsdatum: 30.10.2024)
 # _Norvi SmartPlug NBIOT_
 
+## Lizenz: CC BY-NC-ND 4.0
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+[![License](https://img.shields.io/badge/LICENSE%20CC%20BY-NC-ND%20)](https://github.com/idleberg/Creative-Commons-Markdown/blob/master/4.0/by-nc-nd.markdown)
+
+
+
 ## Hardware-Anforderung
 Norvi SMP-R11SMP-R11
 
