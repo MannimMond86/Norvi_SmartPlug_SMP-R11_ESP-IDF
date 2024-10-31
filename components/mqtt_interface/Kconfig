@@ -1,0 +1,7 @@
+menu "MQTT Settings"
+    config MQTT_PROJECT_VERSION
+        string "Project Version"
+        default "1.0.0"
+        help
+            Specify the version of the ADE9153 project.
+endmenu

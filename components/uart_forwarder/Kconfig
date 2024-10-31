@@ -1,0 +1,7 @@
+menu "UART forwarder Settings"
+    config UART_PROJECT_VERSION
+        string "Project Version"
+        default "1.0.0"
+        help
+            Specify the version of the UART forwarder project.
+endmenu

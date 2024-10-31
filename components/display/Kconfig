@@ -1,0 +1,7 @@
+menu "Display Settings"
+    config DISPLAY_PROJECT_VERSION
+        string "Project Version"
+        default "1.0.0"
+        help
+            Specify the version of the display project.
+endmenu

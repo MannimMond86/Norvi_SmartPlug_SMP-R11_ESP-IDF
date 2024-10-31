@@ -1,0 +1,7 @@
+menu "Thingsboard Settings"
+    config THINGSBOARD_PROJECT_VERSION
+        string "Project Version"
+        default "1.0.0"
+        help
+            Specify the version of the thingsboard project.
+endmenu

@@ -1,4 +1,19 @@
+source "../components/ADE9153/Kconfig"
+source "../components/common_variable_handler/Kconfig"
+source "../components/display/Kconfig"
+source "../components/modem_interface/Kconfig"
+source "../components/mqtt_interface/Kconfig"
+source "../components/thingsboard_interface/Kconfig"
+source "../components/touch_button/Kconfig"
+source "../components/uart_forwarder/Kconfig"
+
 # Kconfig.projbuild
+config APP_PROJECT_VER_FROM_CONFIG
+    bool "Get the project version from Kconfig"
+    default n
+    help
+        If this is enabled, then config item APP_PROJECT_VER will be used for th
+        Other ways to set PROJECT_VER will be ignored.
 
 menu "Project Configuration"
 
@@ -39,7 +54,7 @@ config DEBUG_LEVEL
 
 endmenu
 
-menu "Custom Project Settings"
+menu "Custom Settings"
 
     config CUSTOM_FEATURE_ENABLE
         bool "Enable Custom Feature"
@@ -141,3 +156,6 @@ menu "Custom Pin Settings"
                 This option defines the SCL pin from the display.
 
 endmenu
+
+
+

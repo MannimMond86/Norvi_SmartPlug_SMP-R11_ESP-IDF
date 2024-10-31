@@ -1,0 +1,7 @@
+menu "Touch Button Settings"
+    config TOUCH_BUTTON_PROJECT_VERSION
+        string "Project Version"
+        default "1.0.0"
+        help
+            Specify the version of the Touch Button project.
+endmenu
