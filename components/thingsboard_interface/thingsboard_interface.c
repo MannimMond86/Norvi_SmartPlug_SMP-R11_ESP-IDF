@@ -29,7 +29,3 @@
 #include "thingsboard_interface.h"
 #include "sdkconfig.h"
 
-void func(void)
-{
-
-}

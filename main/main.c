@@ -53,14 +53,37 @@ void modem_task(void *param) {
     //modem_init();
     bool apn_defined = false;
     bool modem_data_sent = false;
-    bool modem_received_Firmware_Version = false;
+    bool modem_received_firmware_version = true;   //default:false
+    bool modem_received_revision_version = true;   //default:false
+    bool modem_received_software_version = true;   //default:false
 
     while (1) {
-        if (modem_received_Firmware_Version == false) {
+
+        if (modem_received_software_version== false) {
+            modem_request_product_serial_number();
+            if (modem_get_revision() == ESP_OK) {
+                ESP_LOGI(TAG_MODEM, "Received software version.");
+                modem_received_software_version  = true;
+            }else {
+                ESP_LOGE(TAG_MODEM, "Failed to get firmware version.");
+            }
+        }
+
+        if (modem_received_revision_version== false) {
+            modem_get_revision();
+            if (modem_get_revision() == ESP_OK) {
+                ESP_LOGI(TAG_MODEM, "Received revision version.");
+                modem_received_revision_version = true;
+            }else {
+                ESP_LOGE(TAG_MODEM, "Failed to get firmware version.");
+            }
+        }
+
+        if (modem_received_firmware_version == false) {
             modem_get_firmware_version();
             if (modem_get_firmware_version() == ESP_OK) {
                 ESP_LOGI(TAG_MODEM, "Received firmware version.");
-                modem_received_Firmware_Version = true;
+                modem_received_firmware_version = true;
             }else {
                 ESP_LOGE(TAG_MODEM, "Failed to get firmware version.");
             }
@@ -137,5 +160,4 @@ void app_main() {
     modem_enable();
     vTaskDelay(5000 / portTICK_PERIOD_MS);
     xTaskCreate(modem_task, "modem_task", 4096, NULL, 5, NULL);
-    ESP_LOGI(TAG_UART, "Config: %d", CONFIG_CUSTOM_FEATURE_LEVEL);
 }

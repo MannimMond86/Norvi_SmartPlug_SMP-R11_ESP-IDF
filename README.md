@@ -108,6 +108,9 @@ Wenn Sie zum Projekt beitragen möchten:
 
 Dieses Projekt ist lizenziert unter der MIT-Lizenz - siehe die [LICENSE](LICENSE) Datei für Details.
 
+##Use Kconfig
+https://github.com/ulfalizer/Kconfiglib?tab=readme-ov-file#kconfig-extensions
+
 ## Kontakt
 
 Wenn Sie Fragen haben, können Sie uns unter [IhreEmail@example.com](mailto:IhreEmail@example.com) erreichen.

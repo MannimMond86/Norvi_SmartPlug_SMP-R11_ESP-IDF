@@ -38,8 +38,8 @@
 #include "common_variable_handler.h"
 #include "sdkconfig.h"
 
-#define GSM_RESET 19
-#define GSM_ENABLE 18
+#define GSM_RESET CONFIG_CUSTOM_BC28_ENABLE_PIN
+#define GSM_ENABLE CONFIG_CUSTOM_BC28_RESET_PIN
 #define TIMEOUT_MS 1000                 // UART timeout
 
 
@@ -115,6 +115,32 @@ esp_err_t modem_get_firmware_version() {
     char response[uart_buffer_size];
     if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
         // Process response here (parse "+CGMR: 1,1" etc.)
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
+
+// Example AT Command function for network registration
+esp_err_t modem_get_revision() {
+    ESP_LOGI(TAG_MODEM, "Get Revision version:");
+    modem_send_command("ATI");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
+
+
+
+// Example AT Command function for network registration
+esp_err_t modem_request_product_serial_number() {
+    ESP_LOGI(TAG_MODEM, "Get Product Serial Number & :");
+    modem_send_command("AT+CGSN=2");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here
         return ESP_OK;
     }
     return ESP_FAIL;

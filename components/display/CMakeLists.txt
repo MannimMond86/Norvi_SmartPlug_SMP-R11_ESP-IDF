@@ -1,2 +1,2 @@
 idf_component_register(SRCS "display.c"
-                    INCLUDE_DIRS "include")
+                    INCLUDE_DIRS "include" ".")

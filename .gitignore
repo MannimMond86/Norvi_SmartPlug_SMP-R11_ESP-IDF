@@ -13,6 +13,7 @@ backup/
 # IDE files
 .vscode/
 .idea/
+.cmake/
 
 # Logs and temporary files
 *.log

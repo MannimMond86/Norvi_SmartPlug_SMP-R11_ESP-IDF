@@ -1,2 +1,3 @@
 idf_component_register(SRCS "ADE9153.c"
-                    INCLUDE_DIRS "include")
+                    INCLUDE_DIRS "include" "."
+                    REQUIRES driver spi_flash)

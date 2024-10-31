@@ -29,7 +29,4 @@
 #include "touch_button.h"
 #include "sdkconfig.h"
 
-void func(void)
-{
 
-}

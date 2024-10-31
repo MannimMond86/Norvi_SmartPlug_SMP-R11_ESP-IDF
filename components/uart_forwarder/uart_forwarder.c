@@ -35,8 +35,8 @@
 #include "common_variable_handler.h"
 #include "sdkconfig.h"
 
-#define GSM_UART_TX 14
-#define GSM_UART_RX 15
+#define GSM_UART_TX CONFIG_CUSTOM_BC28_RX_PIN
+#define GSM_UART_RX CONFIG_CUSTOM_BC28_TX_PIN
 #define UART0_TX 1
 #define UART0_RX 0
 #define TIMEOUT_MS 1000                                       // UART timeout

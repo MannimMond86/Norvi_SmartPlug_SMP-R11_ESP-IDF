@@ -29,7 +29,4 @@
 #include "display.h"
 #include "sdkconfig.h"
 
-void func(void)
-{
 
-}
