@@ -1,22 +1,24 @@
+# Kconfig.projbuild
 menu "SmartPlug Configurations"
 
-config SMART_PLUG_PROJECT_VERSION
-    string "Project Version"
-    default "1.0.0"
-    help
-        Specify the version of your project.
+    config SMART_PLUG_PROJECT_VERSION
+        string "Project Version"
+        default "1.0.0"
+        help
+            Specify the version of your project.
 
-source "../components/ADE9153/Kconfig.ADE9153"
-source "../components/common_variable_handler/Kconfig.CVH"
-source "../components/display/Kconfig.DISPLAY"
-source "../components/modem_interface/Kconfig.MODEM_INTERFACE"
-source "../components/mqtt_interface/Kconfig.MQTT_INTERFACE"
-source "../components/thingsboard_interface/Kconfig.THINGSBOARD_INTERFACE"
-source "../components/touch_button/Kconfig.TOUCH_BUTTON"
-source "../components/uart_forwarder/Kconfig.UART_FORWARDER"
-source "../components/electricity_relay/Kconfig.ELECTRICITY_RELAY"
+    rsource "../components/ADE9153/Kconfig"
+    rsource "../components/common_variable_handler/Kconfig"
+    rsource "../components/display/Kconfig"
+    rsource "../components/modem_interface/Kconfig"
+    rsource "../components/mqtt_interface/Kconfig"
+    rsource "../components/thingsboard_interface/Kconfig"
+    rsource "../components/touch_button/Kconfig"
+    rsource "../components/uart_forwarder/Kconfig"
+    rsource "../components/electricity_relay/Kconfig"
 
 endmenu
-
+#${COMPONENT_LIB}
+#${PROJECT_DIR/components}
 
 
