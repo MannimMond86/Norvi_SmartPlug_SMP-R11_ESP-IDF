@@ -53,11 +53,22 @@ void modem_task(void *param) {
     //modem_init();
     bool apn_defined = false;
     bool modem_data_sent = false;
+    bool modem_received_Firmware_Version = false;
 
     while (1) {
+        if (modem_received_Firmware_Version == false) {
+            modem_get_firmware_version();
+            if (modem_get_firmware_version() == ESP_OK) {
+                ESP_LOGI(TAG_MODEM, "Received firmware version.");
+                modem_received_Firmware_Version = true;
+            }else {
+                ESP_LOGE(TAG_MODEM, "Failed to get firmware version.");
+            }
+        }
+
         if (apn_defined == false) {
             modem_add_network_apn();
-            apn_defined = true;
+            //apn_defined = true;  //TODO delete variable when test ok
             if (modem_add_network_apn() == ESP_OK) {
                 ESP_LOGI(TAG_MODEM, "APN added to Modem.");
                 apn_defined = true;

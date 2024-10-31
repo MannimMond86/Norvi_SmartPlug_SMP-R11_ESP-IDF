@@ -29,6 +29,7 @@
 #include "string.h"
 #include "driver/uart.h"
 #include <stdbool.h>
+#include "sdkconfig.h"
 
 const uart_port_t modem_uart = UART_NUM_1;
 const uart_port_t terminal_uart = UART_NUM_0;

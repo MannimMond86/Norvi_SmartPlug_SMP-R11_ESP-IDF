@@ -1,0 +1,39 @@
+menu"Modem Settings"
+
+    choice MODEM_TYPE
+        prompt "Modem Select Option"
+        default MODEM_TARGET_QUECTEL_BC28JB
+        help
+            Nothing yet
+
+        config MODEM_TARGET_QUECTEL_BC28JB
+            bool
+            prompt "QUECTEL BC28JB"
+
+
+        config MODEM_TARGET_QUECTEL_BC28JA
+            bool
+            prompt "QUECTEL BC28JB"
+
+        config MODEM_TARGET_SIMCOM_SIM7000G
+             bool
+             prompt "SIM7000G"
+             help
+                 not implemented yet. coming soon!
+
+        config MODEM_TARGET_SIMCOM_SIM800G
+             bool
+             prompt "SIM800G"
+             help
+                 not implemented yet. coming soon!
+
+    endchoice # MODEM_TYPE
+
+    config MODEM_PROJECT_VERSION
+        prompt "Modem Project Version Prompt"
+        string "Project Version String"
+        default "1.0.0"
+        help
+            Specify the version of the Modem project.
+
+endmenu

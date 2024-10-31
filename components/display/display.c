@@ -27,6 +27,7 @@
 
 #include <stdio.h>
 #include "display.h"
+#include "sdkconfig.h"
 
 void func(void)
 {

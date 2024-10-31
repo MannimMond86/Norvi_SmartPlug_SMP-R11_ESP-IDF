@@ -36,6 +36,7 @@
 #include "modem_interface.h"
 #include "modem_api.h"
 #include "common_variable_handler.h"
+#include "sdkconfig.h"
 
 #define GSM_RESET 19
 #define GSM_ENABLE 18
@@ -102,6 +103,18 @@ esp_err_t modem_add_network_apn() {
     char response[uart_buffer_size];
     if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
         // Process response here (parse "+CGDCONT:" etc.)
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
+
+// Example AT Command function for network registration
+esp_err_t modem_get_firmware_version() {
+    ESP_LOGI(TAG_MODEM, "Get Firmware version:");
+    modem_send_command("AT+CGMR");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here (parse "+CGMR: 1,1" etc.)
         return ESP_OK;
     }
     return ESP_FAIL;

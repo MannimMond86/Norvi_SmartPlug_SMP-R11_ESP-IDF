@@ -27,6 +27,7 @@
 
 #include <stdio.h>
 #include "mqtt_interface.h"
+#include "sdkconfig.h"
 
 void func(void)
 {

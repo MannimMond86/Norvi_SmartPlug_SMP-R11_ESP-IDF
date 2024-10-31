@@ -90,6 +90,10 @@ sample_project/
 - **src/**: Verzeichnis mit Quellcode-Dateien.
 - **include/**: Verzeichnis mit Header-Dateien.
 
+## Kconfig Testing
+   $ python -m kconfcheck <YOUR_FILENAME>
+   <YOUR_FILENAME> e.g. Kconfig.projbuild or Kconfig.<COMPONENT_NAME>
+
 ## Mitmachen
 
 Wenn Sie zum Projekt beitragen möchten:

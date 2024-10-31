@@ -33,6 +33,7 @@
 #include "string.h"
 #include "uart_forwarder.h"
 #include "common_variable_handler.h"
+#include "sdkconfig.h"
 
 #define GSM_UART_TX 14
 #define GSM_UART_RX 15

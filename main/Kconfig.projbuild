@@ -1,159 +1,31 @@
-source "../components/ADE9153/Kconfig"
-source "../components/common_variable_handler/Kconfig"
-source "../components/display/Kconfig"
-source "../components/modem_interface/Kconfig"
-source "../components/mqtt_interface/Kconfig"
-source "../components/thingsboard_interface/Kconfig"
-source "../components/touch_button/Kconfig"
-source "../components/uart_forwarder/Kconfig"
+menu "SmartPlug Configurations"
 
-# Kconfig.projbuild
-config APP_PROJECT_VER_FROM_CONFIG
-    bool "Get the project version from Kconfig"
-    default n
-    help
-        If this is enabled, then config item APP_PROJECT_VER will be used for th
-        Other ways to set PROJECT_VER will be ignored.
 
-menu "Project Configuration"
-
-config PROJECT_NAME
-    string "Project Name"
-    default "MyProject"
-    help
-        Provide a name for your project.
-
-config PROJECT_VERSION
-    string "Project Version"
-    default "1.0.0"
-    help
-        Specify the version of your project.
-
-config ENABLE_FEATURE_X
-    bool "Enable Feature X"
-    default y
-    help
-        Enable or disable Feature X in the project.
-
-config MAX_BUFFER_SIZE
-    int "Maximum Buffer Size"
-    default 1024
-    help
-        Define the maximum size for buffer allocations.
-
-config DEBUG_LEVEL
-    int "Debugging Level"
-    range 0 3
-    default 1
-    help
-        Set the debugging level:
-          - 0: No debug information
-          - 1: Basic debug information
-          - 2: Detailed debug information
-          - 3: Verbose debug information
-
-endmenu
-
-menu "Custom Settings"
-
-    config CUSTOM_FEATURE_ENABLE
-        bool "Enable Custom Feature"
-        default y
+    config PROJECT_SPECIFIC_OPTION
+        bool "Project-specific option"
         help
-            This option enables or disables the custom feature for the project.
+            This is a project-specific option.
 
-    config CUSTOM_FEATURE_LEVEL
-        int "Custom Feature Level"
-        range 1 10
-        default 5
-        help
-            This sets the level of the custom feature from 1 to 10.
-
-    config PROJECT_ROOT_PATH
-        string "Project Root Directory"
-        default "${IDF_PROJECT_PATH}"
-        help
-            This path points to the root directory of the project.
-
-endmenu
-
-
-
-menu "Quectel BC28"
-
-    config CUSTOM_BC28_RX_PIN
-        int "Set RX Pin"
-        range 0 50
-        default 14
-        help
-            This option defines the rx pin of the modem.
-
-    config CUSTOM_BC28_TX_PIN
-        int "Set TX Pin"
-        range 0 50
-        default 15
-        help
-            This option defines the tx pin of the modem.
-
-    config CUSTOM_BC28_RESET_PIN
-            int "Set RESET Pin"
-            range 0 50
-            default 19
+    config PROJECT_NAME
+            string "Project Name"
+            default "Norvi_SmartPlug-NBIOT_ESP-IDF"
             help
-                This option defines the reset pin of the modem.
+                Provide a name for your project.
 
-    config CUSTOM_BC28_ENABLE_PIN
-            int "Set ENABLE Pin"
-            range 0 50
-            default 18
+        config PROJECT_VERSION
+            string "Project Version"
+            default "1.0.0"
             help
-                This option defines the tx pin of the modem.
+                Specify the version of your project.
 
-endmenu
-
-menu "Custom Pin Settings"
-
-    config CUSTOM_Relay_PIN
-        int "Set Relay Pin"
-        range 0 50
-        default 12
-        help
-            This option defines the pin of of the power switch relay.
-
-    config CUSTOM_Touch_Button_PIN
-        int "Set Touch Button Pin"
-        range 0 50
-        default 13
-        help
-            This option defines the pin of the touch button.
-
-    config CUSTOM_ADE9153_TX_PIN
-        int "Set ADE9153 TX Pin"
-        range 0 50
-        default 16
-        help
-            This option defines the pin of the tx from the ADE9153 sensor.
-
-    config CUSTOM_ADE9153_RX_PIN
-        int "Set ADE9153 RX Pin"
-        range 0 50
-        default 17
-        help
-            This option defines the pin of the rx from the ADE9153 sensor.
-
-    config CUSTOM_DISPLAY_SDA_PIN
-            int "Set Display SDA Pin"
-            range 0 50
-            default 21
-            help
-                This option defines the SDA pin from the display.
-
-    config CUSTOM_DISPLAY_SCL_PIN
-            int "Set Display SCL Pin"
-            range 0 50
-            default 22
-            help
-                This option defines the SCL pin from the display.
+source "../components/ADE9153/Kconfig.ADE9153"
+source "../components/common_variable_handler/Kconfig.CVH"
+source "../components/display/Kconfig.DISPLAY"
+source "../components/modem_interface/Kconfig.MODEM_INTERFACE"
+source "../components/mqtt_interface/Kconfig.MQTT_INTERFACE"
+source "../components/thingsboard_interface/Kconfig.THINGSBOARD_INTERFACE"
+source "../components/touch_button/Kconfig.TOUCH_BUTTON"
+source "../components/uart_forwarder/Kconfig.UART_FORWARDER"
 
 endmenu
 
