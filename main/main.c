@@ -11,7 +11,14 @@
 #include "common_variable_handler.h"
 #include "sdkconfig.h"
 
-// Main task to initialize and communicate with modem
+/**
+ * @brief Task to manage modem operations including initializing the network APN and checking network registration.
+ *
+ * This task begins by adding the network APN to the modem. If successful, it proceeds to check the network registration status.
+ * Once the network is registered, the task will send initial data and end itself. It continuously loops with small delays to ensure the operations are completed sequentially.
+ *
+ * @param param Pointer to the parameters passed to the task (not used in this function).
+ */
 void modem_task(void *param) {
     //modem_init();
     bool apn_defined = false;
@@ -44,6 +51,15 @@ void modem_task(void *param) {
 }
 
 
+/**
+ * @brief Task to handle UART communication between terminal and modem.
+ *
+ * This function reads data from the terminal UART, sends it to the modem UART,
+ * then reads feedback from the modem UART and sends it back to the terminal UART.
+ * It continuously loops with a small delay to handle UART data transfer efficiently.
+ *
+ * @param pvParameter Pointer to the parameters passed to the task (not used in this function).
+ */
 void uart_task(void *pvParameter) {
     uint8_t *data = (uint8_t *) malloc(1024);
 
@@ -69,9 +85,7 @@ void uart_task(void *pvParameter) {
     free(data);
 }
 
-
 void app_main() {
-
     vTaskDelay(50 / portTICK_PERIOD_MS);
     uart_init();
     vTaskDelay(50 / portTICK_PERIOD_MS);
