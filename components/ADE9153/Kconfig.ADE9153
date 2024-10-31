@@ -1,7 +1,23 @@
 menu "ADE9153 Settings"
+
     config ADE9153_PROJECT_VERSION
         string "Project Version"
         default "1.0.0"
         help
             Specify the version of the ADE9153 project.
+
+    config CUSTOM_ADE9153_TX_PIN
+        int "Set ADE9153 TX Pin"
+        range 0 36
+        default 16
+        help
+            This option defines the pin of the tx from the ADE9153 sensor.
+
+    config CUSTOM_ADE9153_RX_PIN
+        int "Set ADE9153 RX Pin"
+        range 0 36
+        default 17
+        help
+            This option defines the pin of the rx from the ADE9153 sensor.
+
 endmenu

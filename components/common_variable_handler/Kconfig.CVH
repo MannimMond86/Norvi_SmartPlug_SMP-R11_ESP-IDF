@@ -1,7 +1,10 @@
 menu "Global Variable Settings"
+
     config GVS_PROJECT_VERSION
-        string "Project Version"
+        prompt "Project Version"
+        string
         default "1.0.0"
         help
             Specify the version of the global variables.
+
 endmenu

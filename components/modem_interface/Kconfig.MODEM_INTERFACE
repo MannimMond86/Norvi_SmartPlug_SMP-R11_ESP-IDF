@@ -1,4 +1,10 @@
 menu"Modem Settings"
+    config MODEM_PROJECT_VERSION
+        prompt "Project Version"
+        string
+        default "1.0.0"
+        help
+            Specify the version of the Modem project.
 
     choice MODEM_TYPE
         prompt "Modem Select Option"
@@ -7,33 +13,64 @@ menu"Modem Settings"
             Nothing yet
 
         config MODEM_TARGET_QUECTEL_BC28JB
-            bool
             prompt "QUECTEL BC28JB"
-
+            bool
 
         config MODEM_TARGET_QUECTEL_BC28JA
-            bool
             prompt "QUECTEL BC28JB"
+            bool
 
         config MODEM_TARGET_SIMCOM_SIM7000G
-             bool
              prompt "SIM7000G"
+             bool
              help
                  not implemented yet. coming soon!
 
         config MODEM_TARGET_SIMCOM_SIM800G
-             bool
              prompt "SIM800G"
+             bool
              help
                  not implemented yet. coming soon!
 
     endchoice # MODEM_TYPE
 
-    config MODEM_PROJECT_VERSION
-        prompt "Modem Project Version Prompt"
-        string "Project Version String"
-        default "1.0.0"
+    config ACCESS_POINT_NAME
+        prompt "APN: mobile Network Gateway"
+        string
+        default "wsim"
         help
-            Specify the version of the Modem project.
+            An APN (Access Point Name) is a gateway between a mobile network (like GSM, GPRS, 3G, 4G, or 5G) and another network, often the public internet. It's a set of configurations that allow a device to connect to a specific network operator and access the internet
+
+    config CUSTOM_BC28_RX_PIN
+        prompt "Set RX Pin"
+        int
+        range 0 36
+        default 14
+        help
+            This option defines the rx pin of the modem.
+
+    config CUSTOM_BC28_TX_PIN
+        prompt "Set TX Pin"
+        int
+        range 0 36
+        default 15
+        help
+            This option defines the tx pin of the modem.
+
+    config CUSTOM_BC28_RESET_PIN
+        prompt "Set RESET Pin"
+        int
+        range 0 36
+        default 19
+        help
+            This option defines the reset pin of the modem.
+
+    config CUSTOM_BC28_ENABLE_PIN
+        prompt "Set ENABLE Pin"
+        int
+        range 0 36
+        default 18
+        help
+            This option defines the tx pin of the modem.
 
 endmenu

@@ -1,22 +1,10 @@
 menu "SmartPlug Configurations"
 
-
-    config PROJECT_SPECIFIC_OPTION
-        bool "Project-specific option"
-        help
-            This is a project-specific option.
-
-    config PROJECT_NAME
-            string "Project Name"
-            default "Norvi_SmartPlug-NBIOT_ESP-IDF"
-            help
-                Provide a name for your project.
-
-        config PROJECT_VERSION
-            string "Project Version"
-            default "1.0.0"
-            help
-                Specify the version of your project.
+config SMART_PLUG_PROJECT_VERSION
+    string "Project Version"
+    default "1.0.0"
+    help
+        Specify the version of your project.
 
 source "../components/ADE9153/Kconfig.ADE9153"
 source "../components/common_variable_handler/Kconfig.CVH"
@@ -26,6 +14,7 @@ source "../components/mqtt_interface/Kconfig.MQTT_INTERFACE"
 source "../components/thingsboard_interface/Kconfig.THINGSBOARD_INTERFACE"
 source "../components/touch_button/Kconfig.TOUCH_BUTTON"
 source "../components/uart_forwarder/Kconfig.UART_FORWARDER"
+source "../components/electricity_relay/Kconfig.ELECTRICITY_RELAY"
 
 endmenu
 

@@ -1,7 +1,18 @@
 menu "Touch Button Settings"
+
     config TOUCH_BUTTON_PROJECT_VERSION
-        string "Project Version"
+        prompt "Project Version"
+        string
         default "1.0.0"
         help
             Specify the version of the Touch Button project.
+
+    config CUSTOM_TOUCH_BUTTON_PIN
+        prompt "Set Touch Button Pin"
+        int
+        range 0 36
+        default 13
+        help
+            This option defines the pin of the touch button.
+
 endmenu

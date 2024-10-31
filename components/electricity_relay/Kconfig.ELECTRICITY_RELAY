@@ -1,0 +1,19 @@
+menu "Electricity Relay"
+
+    config RELAY_PROJECT_VERSION
+        prompt "Project Version"
+        string
+        default "1.0.0"
+        help
+            Specify the version of the display project.
+
+    config CUSTOM_RELAY_PIN
+        prompt "Set Electricity Relay Pin"
+        int
+        range 0 36
+        default 12
+        help
+            This option defines the SDA pin from the display.
+
+
+endmenu
