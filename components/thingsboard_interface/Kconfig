@@ -1,8 +1,18 @@
 menu "Thingsboard Settings"
+
+    config IS_ACTIVATED_THINGSBOARD
+        bool "Enable UART-Forwarder Settings"
+        default y
+
+    if IS_ACTIVATED_THINGSBOARD
+
     config THINGSBOARD_PROJECT_VERSION
         prompt "Project Version"
         string
         default "1.0.0"
         help
             Specify the version of the thingsboard project.
+
+    endif # IS_ACTIVATED_THINGSBOARD
+
 endmenu

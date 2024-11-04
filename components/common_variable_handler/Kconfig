@@ -1,10 +1,18 @@
 menu "Global Variable Settings"
 
+    config IS_ACTIVATED_GLOBAL_VARIABLES
+        bool "Enable global variables settings"
+        default y
+
+    if IS_ACTIVATED_GLOBAL_VARIABLES
+
     config GVS_PROJECT_VERSION
         prompt "Project Version"
         string
         default "1.0.0"
         help
             Specify the version of the global variables.
+
+    endif # IS_ACTIVATED_GLOBAL_VARIABLES
 
 endmenu

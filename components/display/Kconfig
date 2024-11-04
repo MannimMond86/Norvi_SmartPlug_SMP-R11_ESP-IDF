@@ -1,5 +1,11 @@
 menu "Display Settings"
 
+    config IS_ACTIVATED_DISPLAY
+        bool "Enable display settings"
+        default n
+
+    if IS_ACTIVATED_DISPLAY
+
     config DISPLAY_PROJECT_VERSION
         prompt "Project Version"
         string
@@ -22,5 +28,7 @@ menu "Display Settings"
         default 22
         help
             This option defines the SCL pin from the display.
+
+    endif # IS_ACTIVATED_DISPLAY
 
 endmenu

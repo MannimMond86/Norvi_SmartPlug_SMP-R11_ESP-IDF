@@ -1,0 +1,3 @@
+[submodule "components/ThingsBoard"]
+	path = components/ThingsBoard
+	url = https://github.com/thingsboard/thingsboard-client-sdk.git

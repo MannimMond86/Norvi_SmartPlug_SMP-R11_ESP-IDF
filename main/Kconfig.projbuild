@@ -16,9 +16,9 @@ menu "SmartPlug Configurations"
     rsource "../components/touch_button/Kconfig"
     rsource "../components/uart_forwarder/Kconfig"
     rsource "../components/electricity_relay/Kconfig"
+    rsource "../components/wifi_handler/Kconfig"
 
 endmenu
-#${COMPONENT_LIB}
-#${PROJECT_DIR/components}
+
 
 

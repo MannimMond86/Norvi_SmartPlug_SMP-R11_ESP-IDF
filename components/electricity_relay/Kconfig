@@ -1,5 +1,11 @@
 menu "Electricity Relay"
 
+    config IS_ACTIVATED_RELAY
+        bool "Enable Relay Settings"
+        default n
+
+    if IS_ACTIVATED_RELAY
+
     config RELAY_PROJECT_VERSION
         prompt "Project Version"
         string
@@ -15,5 +21,6 @@ menu "Electricity Relay"
         help
             This option defines the SDA pin from the display.
 
+    endif # IS_ACTIVATED_RELAY
 
 endmenu

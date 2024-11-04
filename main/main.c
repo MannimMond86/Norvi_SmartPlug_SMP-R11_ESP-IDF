@@ -35,11 +35,21 @@
 #include "driver/uart.h"
 #include "driver/gpio.h"
 #include "esp_log.h"
+
+#include "nvs_flash.h"
 #include "modem_interface.h"
 #include "uart_forwarder.h"
 #include "common_variable_handler.h"
+#include "wifi_handler.h"
+
 #include "sdkconfig.h"
 
+
+//void wifi_task(void *pvParameter) {
+void wifi_task() {
+    connect_wifi();
+    //vTaskDelete(NULL);
+}
 
 /**
  * @brief Task to manage modem operations including initializing the network APN and checking network registration.
@@ -151,8 +161,28 @@ void uart_task(void *pvParameter) {
 
 void app_main() {
     vTaskDelay(50 / portTICK_PERIOD_MS);
-    uart_init();
-    vTaskDelay(50 / portTICK_PERIOD_MS);
+
+    if(CONFIG_IS_ACTIVATED_WIFI == true){
+
+        // Initialize NVS (Non-Volatile Storage)
+        esp_err_t ret = nvs_flash_init();
+        if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+            ESP_ERROR_CHECK(nvs_flash_erase());
+            ret = nvs_flash_init();
+        }
+        ESP_ERROR_CHECK(ret);
+
+        // Create a FreeRTOS task to handle Wi-Fi connection
+        wifi_task();
+        //xTaskCreate(wifi_task, "wifi_task", 4096, NULL, 5, NULL);
+
+    }
+
+    if(CONFIG_IS_ACTIVATED_UART == true){
+        uart_init();
+        vTaskDelay(50 / portTICK_PERIOD_MS);
+    }
+
     xTaskCreate(uart_task, "uart_task", 2048, NULL, 10, NULL);
     vTaskDelay(50 / portTICK_PERIOD_MS);
     modem_reset();

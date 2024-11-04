@@ -35,6 +35,7 @@
 #include "common_variable_handler.h"
 #include "sdkconfig.h"
 
+
 #define GSM_UART_TX CONFIG_CUSTOM_BC28_RX_PIN
 #define GSM_UART_RX CONFIG_CUSTOM_BC28_TX_PIN
 #define UART0_TX 1

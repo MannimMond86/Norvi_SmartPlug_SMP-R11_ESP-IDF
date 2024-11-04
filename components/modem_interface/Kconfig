@@ -1,4 +1,11 @@
 menu"Modem Settings"
+
+    config IS_ACTIVATED_MODEM
+        bool "Enable Modem Settings"
+        default y
+
+    if IS_ACTIVATED_MODEM
+
     config MODEM_PROJECT_VERSION
         prompt "Project Version"
         string
@@ -72,5 +79,7 @@ menu"Modem Settings"
         default 18
         help
             This option defines the tx pin of the modem.
+
+    endif # IS_ACTIVATED_MODEM
 
 endmenu

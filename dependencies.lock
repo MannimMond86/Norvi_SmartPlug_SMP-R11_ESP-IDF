@@ -1,10 +1,25 @@
 dependencies:
+  ThingsBoard:
+    dependencies: []
+    source:
+      path: /home/ubuntu/CLionProjects/Norvi_SmartPlug_SMP-R11_ESP-IDF/components/ThingsBoard
+      type: local
+    version: 0.14.0
+  bblanchon/arduinojson:
+    component_hash: 463812931f99cb7a554d64311288f537b43daaca3eed2427557b907af393447c
+    dependencies: []
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 6.21.5
   idf:
     source:
       type: idf
-    version: 5.4.0
+    version: 5.2.3
 direct_dependencies:
+- bblanchon/arduinojson
 - idf
-manifest_hash: 366621fe918f5173914ce31cfe7b5e4ccb9aa3848d18d64146485f4068a19838
+- thingsboard/ThingsBoard
+manifest_hash: cf77bdb3fc891117a7cb76a0ca2f4635fb06530adad73ef15baeed0f36a8bd2f
 target: esp32
 version: 2.0.0

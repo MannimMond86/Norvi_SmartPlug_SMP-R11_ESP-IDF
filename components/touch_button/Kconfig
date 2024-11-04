@@ -1,5 +1,11 @@
 menu "Touch Button Settings"
 
+    config IS_ACTIVATED_TOUCH_BUTTON
+        bool "Enable UART-Forwarder Settings"
+        default n
+
+    if IS_ACTIVATED_TOUCH_BUTTON
+
     config TOUCH_BUTTON_PROJECT_VERSION
         prompt "Project Version"
         string
@@ -14,5 +20,7 @@ menu "Touch Button Settings"
         default 13
         help
             This option defines the pin of the touch button.
+
+    endif # TOUCH_BUTTON
 
 endmenu

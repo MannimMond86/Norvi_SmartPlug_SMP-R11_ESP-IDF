@@ -1,8 +1,18 @@
-menu "UART forwarder Settings"
+menu "UART Forwarder Settings"
+
+    config IS_ACTIVATED_UART
+        bool "Enable UART-Forwarder Settings"
+        default y
+
+    if IS_ACTIVATED_UART
+
     config UART_PROJECT_VERSION
         prompt "Project Version"
         string
         default "1.0.0"
         help
             Specify the version of the UART forwarder project.
+
+    endif # IS_ACTIVATED_UART
+
 endmenu
