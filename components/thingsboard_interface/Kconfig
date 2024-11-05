@@ -1,7 +1,7 @@
 menu "Thingsboard Settings"
 
     config IS_ACTIVATED_THINGSBOARD
-        bool "Enable UART-Forwarder Settings"
+        bool "Enable Thingsboard Settings"
         default y
 
     if IS_ACTIVATED_THINGSBOARD

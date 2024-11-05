@@ -38,8 +38,8 @@
 #include "common_variable_handler.h"
 #include "sdkconfig.h"
 
-#define GSM_RESET CONFIG_CUSTOM_BC28_ENABLE_PIN
-#define GSM_ENABLE CONFIG_CUSTOM_BC28_RESET_PIN
+#define GSM_RESET CONFIG_BC28_ENABLE_PIN
+#define GSM_ENABLE CONFIG_BC28_RESET_PIN
 #define TIMEOUT_MS 1000                 // UART timeout
 
 

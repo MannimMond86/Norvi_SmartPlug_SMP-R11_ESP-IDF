@@ -35,19 +35,47 @@
 #include "driver/uart.h"
 #include "driver/gpio.h"
 #include "esp_log.h"
+#include <esp_netif.h>
+#include <esp_wifi.h>
 
 #include "nvs_flash.h"
 #include "modem_interface.h"
 #include "uart_forwarder.h"
 #include "common_variable_handler.h"
-#include "wifi_handler.h"
+#include "wifi_handler.hpp"
+//#include <ThingsBoard.h>
 
 #include "sdkconfig.h"
 
 
+// Status for successfully connecting to the given WiFi
+bool wifi_connected = false;
+
 //void wifi_task(void *pvParameter) {
-void wifi_task() {
-    connect_wifi();
+void wifi_task(void *param) {
+    if(wifi_connected == false) {
+        InitWiFi();
+    }
+    for (;;) {
+        // Wait until we connected to WiFi
+        if (!wifi_connected) {
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            continue;
+        }
+
+        /**
+        if (!tb.connected()) {
+            tb.connect(THINGSBOARD_SERVER, TOKEN, THINGSBOARD_PORT);
+        }
+        **/
+
+        //tb.sendTelemetryData(TEMPERATURE_KEY, esp_random());
+        //tb.sendTelemetryData(HUMIDITY_KEY, esp_random());
+
+        //tb.loop();
+
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
     //vTaskDelete(NULL);
 }
 
@@ -159,7 +187,19 @@ void uart_task(void *pvParameter) {
     free(data);
 }
 
-void app_main() {
+extern "C" void app_main() {
+    vTaskDelay(50 / portTICK_PERIOD_MS);
+    ESP_LOGI(TAG_MAIN, "[APP] Startup..");
+    ESP_LOGI(TAG_MAIN, "[APP] Free memory: %" PRIu32 " bytes", esp_get_free_heap_size());
+    ESP_LOGI(TAG_MAIN, "[APP] IDF version: %s", esp_get_idf_version());
+
+    esp_log_level_set("*", ESP_LOG_INFO);
+
+    ESP_ERROR_CHECK(nvs_flash_init());
+    vTaskDelay(50 / portTICK_PERIOD_MS);
+    ESP_ERROR_CHECK(esp_netif_init());
+    vTaskDelay(50 / portTICK_PERIOD_MS);
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
     vTaskDelay(50 / portTICK_PERIOD_MS);
 
     if(CONFIG_IS_ACTIVATED_WIFI == true){
@@ -173,8 +213,8 @@ void app_main() {
         ESP_ERROR_CHECK(ret);
 
         // Create a FreeRTOS task to handle Wi-Fi connection
-        wifi_task();
-        //xTaskCreate(wifi_task, "wifi_task", 4096, NULL, 5, NULL);
+
+        xTaskCreate(wifi_task, "wifi_task", 1024 * 4, NULL, 5, NULL);
 
     }
 

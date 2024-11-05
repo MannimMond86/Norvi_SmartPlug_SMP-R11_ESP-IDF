@@ -37,3 +37,4 @@ const int uart_buffer_size = (1024 * 2);
 bool modem_init_success = false;
 const char *TAG_MODEM = "Modem";
 const char *TAG_UART = "UART";
+const char *TAG_MAIN = "Main";

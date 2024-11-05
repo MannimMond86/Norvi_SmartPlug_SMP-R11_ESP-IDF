@@ -1,0 +1,4 @@
+#ifndef ELECTRICITY_RELAY_H
+#define ELECTRICITY_RELAY_H
+
+#endif

@@ -12,5 +12,6 @@ extern const int uart_buffer_size ;
 extern bool modem_init_success;
 extern const char *TAG_MODEM;
 extern const char *TAG_UART;
+extern const char *TAG_MAIN;
 
 #endif

@@ -29,3 +29,8 @@
 #include "thingsboard_interface.h"
 #include "sdkconfig.h"
 
+
+void provide_thingsboard_events(void){
+
+
+};

@@ -48,7 +48,7 @@ menu"Modem Settings"
         help
             An APN (Access Point Name) is a gateway between a mobile network (like GSM, GPRS, 3G, 4G, or 5G) and another network, often the public internet. It's a set of configurations that allow a device to connect to a specific network operator and access the internet
 
-    config CUSTOM_BC28_RX_PIN
+    config BC28_RX_PIN
         prompt "Set RX Pin"
         int
         range 0 36
@@ -56,7 +56,7 @@ menu"Modem Settings"
         help
             This option defines the rx pin of the modem.
 
-    config CUSTOM_BC28_TX_PIN
+    config BC28_TX_PIN
         prompt "Set TX Pin"
         int
         range 0 36
@@ -64,7 +64,7 @@ menu"Modem Settings"
         help
             This option defines the tx pin of the modem.
 
-    config CUSTOM_BC28_RESET_PIN
+    config BC28_RESET_PIN
         prompt "Set RESET Pin"
         int
         range 0 36
@@ -72,13 +72,13 @@ menu"Modem Settings"
         help
             This option defines the reset pin of the modem.
 
-    config CUSTOM_BC28_ENABLE_PIN
+    config BC28_ENABLE_PIN
         prompt "Set ENABLE Pin"
         int
         range 0 36
         default 18
         help
-            This option defines the tx pin of the modem.
+            This option defines the enable in of the modem.
 
     endif # IS_ACTIVATED_MODEM
 

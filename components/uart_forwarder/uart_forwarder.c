@@ -35,9 +35,10 @@
 #include "common_variable_handler.h"
 #include "sdkconfig.h"
 
+// set the bidirectional communication to Modem via AT Commands
+#define GSM_UART_TX CONFIG_BC28_RX_PIN
+#define GSM_UART_RX CONFIG_BC28_TX_PIN
 
-#define GSM_UART_TX CONFIG_CUSTOM_BC28_RX_PIN
-#define GSM_UART_RX CONFIG_CUSTOM_BC28_TX_PIN
 #define UART0_TX 1
 #define UART0_RX 0
 #define TIMEOUT_MS 1000                                       // UART timeout
