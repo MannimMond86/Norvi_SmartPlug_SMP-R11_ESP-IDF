@@ -38,3 +38,5 @@ bool modem_init_success = false;
 const char *TAG_MODEM = "Modem";
 const char *TAG_UART = "UART";
 const char *TAG_MAIN = "Main";
+const char *TAG_WIFI = "WIFI";
+bool wifi_is_connected = false;

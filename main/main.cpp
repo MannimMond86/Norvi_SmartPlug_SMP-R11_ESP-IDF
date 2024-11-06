@@ -42,23 +42,22 @@
 #include "modem_interface.h"
 #include "uart_forwarder.h"
 #include "common_variable_handler.h"
-#include "wifi_handler.hpp"
+#include "wifi_handler.h"
 //#include <ThingsBoard.h>
 
 #include "sdkconfig.h"
 
 
-// Status for successfully connecting to the given WiFi
-bool wifi_connected = false;
-
 //void wifi_task(void *pvParameter) {
 void wifi_task(void *param) {
-    if(wifi_connected == false) {
+    if(wifi_is_connected == false) {
+        ESP_LOGW(TAG_WIFI, "Connecting WIFI...");
         InitWiFi();
     }
+
     for (;;) {
         // Wait until we connected to WiFi
-        if (!wifi_connected) {
+        if (!wifi_is_connected) {
             vTaskDelay(1000 / portTICK_PERIOD_MS);
             continue;
         }
@@ -76,7 +75,7 @@ void wifi_task(void *param) {
 
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
-    //vTaskDelete(NULL);
+    vTaskDelete(NULL);
 }
 
 /**
@@ -202,8 +201,10 @@ extern "C" void app_main() {
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     vTaskDelay(50 / portTICK_PERIOD_MS);
 
-    if(CONFIG_IS_ACTIVATED_WIFI == true){
 
+    if(CONFIG_WIFI_ACTIVATED == 1){
+
+        ESP_LOGW(TAG_MAIN, "[APP] Startup WIFI...");
         // Initialize NVS (Non-Volatile Storage)
         esp_err_t ret = nvs_flash_init();
         if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -213,21 +214,29 @@ extern "C" void app_main() {
         ESP_ERROR_CHECK(ret);
 
         // Create a FreeRTOS task to handle Wi-Fi connection
-
         xTaskCreate(wifi_task, "wifi_task", 1024 * 4, NULL, 5, NULL);
+        vTaskDelay(4000 / portTICK_PERIOD_MS);
+        ESP_LOGI(TAG_MAIN, "[APP] WIFI Task activated");
 
-    }
+    }else if (CONFIG_WIFI_ACTIVATED == 0){
 
-    if(CONFIG_IS_ACTIVATED_UART == true){
-        uart_init();
+        ESP_LOGW(TAG_MAIN, "[APP] Startup Modem...");
+
+        if(CONFIG_IS_ACTIVATED_UART == true){
+            uart_init();
+            vTaskDelay(50 / portTICK_PERIOD_MS);
+        }
+
+        xTaskCreate(uart_task, "uart_task", 1024 * 2, NULL, 10, NULL);
         vTaskDelay(50 / portTICK_PERIOD_MS);
+        modem_reset();
+        vTaskDelay(50 / portTICK_PERIOD_MS);
+        modem_enable();
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
+        xTaskCreate(modem_task, "modem_task", 1024 * 4, NULL, 5, NULL);
+
+    }else{
+        ESP_LOGE(TAG_MAIN, "[APP] Failed to connect to Internet");
     }
 
-    xTaskCreate(uart_task, "uart_task", 2048, NULL, 10, NULL);
-    vTaskDelay(50 / portTICK_PERIOD_MS);
-    modem_reset();
-    vTaskDelay(50 / portTICK_PERIOD_MS);
-    modem_enable();
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
-    xTaskCreate(modem_task, "modem_task", 4096, NULL, 5, NULL);
 }

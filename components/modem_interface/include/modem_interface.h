@@ -6,6 +6,10 @@
 #include "string.h"
 #include "esp_log.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 bool modem_reset();
 void modem_enable();
 void modem_init();
@@ -16,5 +20,9 @@ esp_err_t modem_add_network_apn();
 esp_err_t modem_get_firmware_version();
 esp_err_t modem_get_revision();
 esp_err_t modem_request_product_serial_number();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -9,13 +9,17 @@
 #include "driver/gpio.h"
 #include "esp_err.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 esp_err_t read_ade9135_data(uint8_t *data, size_t len);
-
 spi_device_handle_t spi;
-
 spi_bus_config_t bus_config;
 spi_device_interface_config_t dev_config;
 
-esp_err_t read_ade9135_data(uint8_t *data, size_t len);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

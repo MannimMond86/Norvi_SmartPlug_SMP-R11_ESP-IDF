@@ -1,23 +1,31 @@
 menu "WiFi Settings"
-
-    config IS_ACTIVATED_WIFI
+    # This option controls whether the feature is enabled
+    config ENABLE_WIFI_SETTINGS
         bool "Enable WiFi Settings"
         default y
+        help
+          Enable this option to include SSID & Password in the build.
 
-    if IS_ACTIVATED_WIFI
+    config WIFI_ACTIVATED
+        int "WiFi is Enabled"
+        range 0 1
+        default 1 if ENABLE_WIFI_SETTINGS
+        default 0 if !ENABLE_WIFI_SETTINGS
+        help
+          This variable indicates whether WiFi is enabled. It is set to true if ENABLE_WIFI is enabled, and false if not.
 
     config WIFI_SSID
-            string "WiFi SSID"
-            default "labor"
-            help
-                SSID (network name) for the example to connect to.
+        string "WiFi SSID"
+        default "POSTV-Fritzbox" if ENABLE_WIFI_SETTINGS
+        default "" if !ENABLE_WIFI_SETTINGS
+        help
+            SSID (network name) for the example to connect to.
 
-        config WIFI_PASSWORD
-            string "WiFi Password"
-            default "TPP_Netzwerk2024!"
-            help
-                WiFi password (WPA or WPA2) for the example to use.
-
-    endif # IS_ACTIVATED_WIFI
+    config WIFI_PASSWORD
+        string "WiFi Password"
+        default "postvadm1n" if ENABLE_WIFI_SETTINGS
+        default "" if !ENABLE_WIFI_SETTINGS
+        help
+            WiFi password (WPA or WPA2) for the example to use.
 
 endmenu

@@ -1,4 +1,5 @@
-#include "wifi_handler.hpp"
+#include "wifi_handler.h"
+#include "common_variable_handler.h"
 #include "sdkconfig.h"
 
 #include <string.h>
@@ -12,20 +13,26 @@
 #include "nvs_flash.h"
 #include <esp_netif.h>
 
-// Status for successfully connecting to the given WiFi
-bool wifi_connected = false;
 
 // See https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/memory-types.html#drom-data-stored-in-flash
 // for more information about the aforementioned feature
 //constexpr char WIFI_SSID[] = CONFIG_WIFI_SSID;
 //constexpr char WIFI_PASSWORD[] = CONFIG_WIFI_PASSWORD;
 
-constexpr char WIFI_SSID[] = "Vodafone-6D9D";
-constexpr char WIFI_PASSWORD[] = "euGBvU4DApy6NvLC";
+//constexpr char WIFI_SSID[] = "Vodafone-6D9D";
+//constexpr char WIFI_PASSWORD[] = "euGBvU4DApy6NvLC";
 //constexpr char WIFI_SSID[] = "labor";
 //constexpr char WIFI_PASSWORD[] = "TPP_Netzwerk2024!";
 //#define EXAMPLE_ESP_WIFI_SSID      "POSTV-Fritzbox"
 //#define EXAMPLE_ESP_WIFI_PASS      "postvadm1n"
+#ifdef CONFIG_WIFI_ACTIVATED
+const char WIFI_SSID[] = CONFIG_WIFI_SSID;
+const char WIFI_PASSWORD[] = CONFIG_WIFI_PASSWORD;
+#else
+const char WIFI_SSID[] = "";
+const char WIFI_PASSWORD[] = "";
+#endif
+
 
 /// @brief Callback method that is called if we got an ip address from the connected WiFi meaning we successfully established a connection
 /// @param event_handler_arg User data registered to the event
@@ -33,7 +40,7 @@ constexpr char WIFI_PASSWORD[] = "euGBvU4DApy6NvLC";
 /// @param event_id The id for the received event
 /// @param event_data The data for the event, esp_event_handler_t
 void on_got_ip(void* event_handler_arg, esp_event_base_t event_base, int32_t event_id, void* event_data) {
-    wifi_connected = true;
+    wifi_is_connected = true;
 }
 
 /// @brief Initalizes WiFi connection,
