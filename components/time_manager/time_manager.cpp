@@ -1,5 +1,5 @@
 /***********************************************************************************************
-* FILENAME       : thingsboard_interface.c
+* FILENAME       : time_manager.cpp
  * VERSION        : 0.0.1
  * DESCRIPTION    :
  *
@@ -26,11 +26,6 @@
  ***********************************************************************************************/
 
 #include <stdio.h>
-#include "thingsboard_interface.h"
-#include "sdkconfig.h"
+#include "time_manager.h"
 
 
-void provide_thingsboard_events(void){
-
-
-};

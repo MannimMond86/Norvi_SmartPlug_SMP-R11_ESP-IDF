@@ -12,11 +12,11 @@ menu "SmartPlug Configurations"
     rsource "../components/display/Kconfig"
     rsource "../components/modem_interface/Kconfig"
     rsource "../components/mqtt_interface/Kconfig"
-    rsource "../components/thingsboard_interface/Kconfig"
     rsource "../components/touch_button/Kconfig"
     rsource "../components/uart_forwarder/Kconfig"
     rsource "../components/electricity_relay/Kconfig"
     rsource "../components/wifi_handler/Kconfig"
+    rsource "../components/ThingsBoard/Kconfig"
 
 endmenu
 

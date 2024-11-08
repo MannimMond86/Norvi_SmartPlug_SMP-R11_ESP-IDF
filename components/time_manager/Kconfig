@@ -1,0 +1,18 @@
+menu "Time Schedular Settings"
+
+    config IS_ACTIVATED_TIME_SCHEDULAR
+        bool "Enable Touch Button Settings"
+        default n
+
+    if IS_ACTIVATED_TIME_SCHEDULAR
+
+    config TIME_SCHEDULAR_PROJECT_VERSION
+        prompt "Project Version"
+        string
+        default "1.0.0"
+        help
+            Specify the version of the Touch Button project.
+
+    endif # TOUCH_BUTTON
+
+endmenu

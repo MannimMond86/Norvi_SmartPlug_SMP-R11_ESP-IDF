@@ -1,9 +1,11 @@
-#ifndef TOUCH_BUTTON_H
-#define TOUCH_BUTTON_H
+#ifndef TIME_MANAGER_H
+#define TIME_MANAGER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
 
 
 #ifdef __cplusplus
@@ -11,3 +13,4 @@ extern "C" {
 #endif
 
 #endif
+

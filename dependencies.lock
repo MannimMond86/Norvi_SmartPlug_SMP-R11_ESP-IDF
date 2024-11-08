@@ -20,6 +20,6 @@ direct_dependencies:
 - bblanchon/arduinojson
 - idf
 - thingsboard/ThingsBoard
-manifest_hash: cf77bdb3fc891117a7cb76a0ca2f4635fb06530adad73ef15baeed0f36a8bd2f
+manifest_hash: 3ab0474c4acac0c1fa4a7a3d0a4ec92403f83ac4237a67a41e903cba5f78859e
 target: esp32
 version: 2.0.0

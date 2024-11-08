@@ -18,7 +18,12 @@ extern const char *TAG_MODEM;
 extern const char *TAG_UART;
 extern const char *TAG_MAIN;
 extern const char *TAG_WIFI;
+extern const char *TAG_THINGSBOARD;
 extern bool wifi_is_connected;
+extern bool registration_step0_success;
+extern bool registration_step1_success;
+extern bool registration_step2_success;
+extern int failedAttempts;
 
 #ifdef __cplusplus
 }
