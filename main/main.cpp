@@ -85,10 +85,11 @@ void thingsboard_task(void *param) {
 		    ESP_LOGI(TAG_THINGSBOARD, "[THINGSBOARD] Start..");
             tb.sendTelemetryData(TEMPERATURE_KEY, esp_random());
             tb.sendTelemetryData(HUMIDITY_KEY, esp_random());
-
+			esp_task_wdt_reset();
             tb.loop();
-
+			esp_task_wdt_reset();
             vTaskDelay(1000 / portTICK_PERIOD_MS);
+            esp_task_wdt_reset();
         }
     }
     esp_task_wdt_delete(NULL);
@@ -130,11 +131,9 @@ void wifi_task(void *param) {
 void modem_task(void *param) {
     esp_task_wdt_add(NULL);
     //modem_init();
-    bool apn_defined = false;
-    bool modem_data_communication = false;
-    bool modem_received_revision_version = false;   //default:false
-    bool modem_received_firmware_version = false;   //default:false
-    bool modem_received_product_number = false;   //default:false
+    bool modem_received_revision_version = true;   //default:false
+    bool modem_received_firmware_version = true;   //default:false
+    bool modem_received_product_number = true;   //default:false
 	failedAttempts = 0;
 
     while (1) {
@@ -219,6 +218,39 @@ void modem_task(void *param) {
         	    }
         	    esp_task_wdt_reset();
 			    vTaskDelay(5000 / portTICK_PERIOD_MS);
+
+                esp_task_wdt_reset();
+                if (modem_set_dns_server() == ESP_OK) {
+                    ESP_LOGW(TAG_MODEM, "Modem added DNS.");
+                    esp_task_wdt_reset();
+                } else {
+                    ESP_LOGE(TAG_MODEM, "Failed to set DNS.");
+                }
+                esp_task_wdt_reset();
+                vTaskDelay(5000 / portTICK_PERIOD_MS);
+
+
+                esp_task_wdt_reset();
+                if (modem_set_PLMN() == ESP_OK) {
+                    ESP_LOGW(TAG_MODEM, "Modem set PLMN.");
+                    esp_task_wdt_reset();
+                } else {
+                    ESP_LOGE(TAG_MODEM, "Failed to set PLMN..");
+                }
+                esp_task_wdt_reset();
+                vTaskDelay(5000 / portTICK_PERIOD_MS);
+
+                esp_task_wdt_reset();
+                if (modem_get_PLMN() == ESP_OK) {
+                    ESP_LOGW(TAG_MODEM, "Modem got PLMN.");
+                    esp_task_wdt_reset();
+                } else {
+                    ESP_LOGE(TAG_MODEM, "Failed to get PLMN..");
+                }
+                esp_task_wdt_reset();
+                vTaskDelay(5000 / portTICK_PERIOD_MS);
+
+
                 esp_task_wdt_reset();
                 registration_step0_success = true;
             }
@@ -269,8 +301,15 @@ void modem_task(void *param) {
         internet_connected = true;
 
         if( internet_connected == true ){
+            esp_task_wdt_reset();
+            modem_get_connection_Status();
+            esp_task_wdt_reset();
+            vTaskDelay(5000 / portTICK_PERIOD_MS);
+            esp_task_wdt_reset();
             modem_ping();
-            //xTaskCreate(thingsboard_task, "thingsboard_task", 1024 * 4, NULL, 5, NULL);
+            esp_task_wdt_reset();
+            modem_get_NBAND();
+
             ESP_LOGI(TAG_MAIN, "[APP] ThingsBoard Task activated");
         }
         ESP_LOGW(TAG_MODEM, "2MODEM TASK DONE");
@@ -354,7 +393,7 @@ extern "C" void app_main() {
         //TODO refactor thingsboard init
         vTaskDelay(4000 / portTICK_PERIOD_MS);
         ESP_LOGI(TAG_MAIN, "[APP] WIFI Task activated");
-        //xTaskCreate(thingsboard_task, "thingsboard_task", 1024 * 4, NULL, 5, NULL);
+        xTaskCreate(thingsboard_task, "thingsboard_task", 1024 * 4, NULL, 5, NULL);
 
     }else if (CONFIG_WIFI_ACTIVATED == 0){
 
@@ -378,7 +417,7 @@ extern "C" void app_main() {
 
         //TODO refactor thingsboard init
         //vTaskDelay(20000 / portTICK_PERIOD_MS);
-
+        //xTaskCreate(thingsboard_task, "thingsboard_task", 1024 * 6, NULL, 8, NULL);
         //ESP_LOGI(TAG_MAIN, "[APP] ThingsBoard connected?");
         //xTaskCreate(test_network_task, "test_network_task", 1024 * 4, NULL, 5, NULL);
     }else{

@@ -47,7 +47,8 @@ constexpr char TOKEN[] = "uqGvQhVadUwtlxVfTU5B";
 
 // Thingsboard we want to establish a connection too
 //constexpr char THINGSBOARD_SERVER[] = "demo.thingsboard.io";
-constexpr char THINGSBOARD_SERVER[] = "thingsboard.cloud";
+//constexpr char THINGSBOARD_SERVER[] = "thingsboard.cloud";
+constexpr char THINGSBOARD_SERVER[] = "44.194.165.190";
 
 // MQTT port used to communicate with the server, 1883 is the default unencrypted MQTT port,
 // whereas 8883 would be the default encrypted SSL MQTT port

@@ -209,7 +209,7 @@ esp_err_t modem_check_network_connection(){
 
 esp_err_t modem_ping(){
     ESP_LOGI(TAG_MODEM, "AT+NPING");
-    modem_send_command("AT+NPING=\"1.1.1.1\"");
+    modem_send_command("AT+NPING=\"8.8.8.8\"");
     char response[uart_buffer_size];
     if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
         // Process response here
@@ -276,6 +276,53 @@ esp_err_t modem_set_CFUN_0(){
 esp_err_t modem_set_CFUN_1(){
     ESP_LOGI(TAG_MODEM, "AT+CFUN=1");
     modem_send_command("AT+CFUN=1");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
+
+esp_err_t modem_get_connection_Status(){
+    ESP_LOGI(TAG_MODEM, "AT+CSCON?");
+    modem_send_command("AT+CSCON?");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
+
+
+esp_err_t modem_get_PLMN(){
+    ESP_LOGI(TAG_MODEM, "AT+COPS?");
+    modem_send_command("AT+COPS?");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
+
+esp_err_t modem_set_PLMN(){
+    //ESP_LOGI(TAG_MODEM, "AT+COPS=1,2,\"26201\"");
+    //modem_send_command("AT+COPS=1,2,\"26201\"");
+    ESP_LOGI(TAG_MODEM, "AT+COPS=0");
+    modem_send_command("AT+COPS=0");
+    char response[uart_buffer_size];
+    if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
+        // Process response here
+        return ESP_OK;
+    }
+    return ESP_FAIL;
+}
+
+esp_err_t modem_get_NBAND(){
+    ESP_LOGI(TAG_MODEM, "AT+NBAND=?");
+    modem_send_command("AT+NBAND=?");
     char response[uart_buffer_size];
     if (modem_read_response(response, uart_buffer_size) == ESP_OK) {
         // Process response here
