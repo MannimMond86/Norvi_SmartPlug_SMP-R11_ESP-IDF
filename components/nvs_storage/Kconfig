@@ -1,0 +1,9 @@
+menu "NVS Settings"
+    # This option controls whether the feature is enabled
+    config ENABLE_NVS_SETTINGS
+        bool "Enable NVS Settings"
+        default y
+        help
+          Enable this option to include SSID & Password in the build.
+
+endmenu

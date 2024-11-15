@@ -12,14 +12,51 @@ dependencies:
       registry_url: https://components.espressif.com/
       type: service
     version: 6.21.5
+  espressif/button:
+    component_hash: 5357a6a2c0c47fa67eb9a4dad8cbd78f848d05409b3557e49ec9948898655cfb
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.0'
+    - name: espressif/cmake_utilities
+      registry_url: https://components.espressif.com
+      require: private
+      version: 0.*
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 3.4.0
+  espressif/cmake_utilities:
+    component_hash: 351350613ceafba240b761b4ea991e0f231ac7a9f59a9ee901f751bddc0bb18f
+    dependencies:
+    - name: idf
+      registry_url: https://components.espressif.com
+      require: private
+      version: '>=4.1'
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 0.5.3
+  espressif/led_strip:
+    component_hash: f907c58f722c58ab8545366668cfd8769cefb7d97a631a14e9d16234cc72bdff
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 3.0.0
   idf:
     source:
       type: idf
     version: 5.2.3
 direct_dependencies:
 - bblanchon/arduinojson
+- espressif/button
+- espressif/led_strip
 - idf
 - thingsboard/ThingsBoard
-manifest_hash: 3ab0474c4acac0c1fa4a7a3d0a4ec92403f83ac4237a67a41e903cba5f78859e
+manifest_hash: 14f10f80ed65b738e413937a8975363903eab42d92bc9fbca0ab1efa449caa14
 target: esp32
 version: 2.0.0

@@ -9,14 +9,17 @@ menu "SmartPlug Configurations"
 
     rsource "../components/ADE9153/Kconfig"
     rsource "../components/common_variable_handler/Kconfig"
-    rsource "../components/display/Kconfig"
+    rsource "../components/display_ssd1306/Kconfig"
+    rsource "../components/electricity_relay/Kconfig"
+    rsource "../components/fatfs_storage/Kconfig"
     rsource "../components/modem_interface/Kconfig"
     rsource "../components/mqtt_interface/Kconfig"
+    rsource "../components/nvs_storage/Kconfig"
+    rsource "../components/ThingsBoard/Kconfig"
+    rsource "../components/time_manager/Kconfig"
     rsource "../components/touch_button/Kconfig"
     rsource "../components/uart_forwarder/Kconfig"
-    rsource "../components/electricity_relay/Kconfig"
     rsource "../components/wifi_handler/Kconfig"
-    rsource "../components/ThingsBoard/Kconfig"
 
 endmenu
 

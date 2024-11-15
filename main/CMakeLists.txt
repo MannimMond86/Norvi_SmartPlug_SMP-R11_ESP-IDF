@@ -13,22 +13,33 @@ set(srcs
 
 set(dependencies
         esp_common
+        esp_lcd
+        esp_timer
+        mqtt
         #bblanchon__arduinojson
         log
         driver
-        modem_interface
-        uart_forwarder
-        common_variable_handler
-        wifi_handler
+        freertos
+        app_update
         nvs_flash
-        time_manager
 )
 
 set(private_dependencies
-        freertos
-        esp_timer
-        app_update
-        esp_common
+        ADE9153
+        common_variable_handler
+        display_ssd1306
+        electricity_relay
+        fatfs_storage
+        led_ws2812
+        modem_interface
+        mqtt_interface
+        nvs_storage
+        ThingsBoard
+        time_manager
+        touch_button
+        uart_forwarder
+        wifi_handler
+
 )
 
 idf_component_register(SRCS "main.cpp" ${srcs}

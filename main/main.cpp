@@ -1,11 +1,18 @@
 /***********************************************************************************************
 * FILENAME       : main.cpp
  * VERSION        : 0.0.1
- * DESCRIPTION    : This code defines an ESP32 application that manages modem operations and facilitates UART communication between a terminal and the modem using FreeRTOS tasks.
+ * DESCRIPTION    : This code defines an ESP32 application that run FreeRTOS tasks to handle the Norvi SmartPlug .
  *
  * PUBLIC FUNCTIONS:
- *    - mode_task()
- *    - uart_task()
+ *    - mode_task()                                           embedded by xTaskCreatePinnedToCore @Core X
+ *    - uart_task()                                           embedded by xTaskCreatePinnedToCore @Core X
+ *    - thingsboard_task()                                    embedded by xTaskCreatePinnedToCore @Core X
+ *    - wifi_task()                                           embedded by xTaskCreatePinnedToCore @Core X
+ *    - display_task() // ssd1306 128x32
+ *    - ws2812_task() // LED
+ *    - nvs_task()
+ *    - button_task()  // TODO implementation soon
+ *    - timer_manager_task() // TODO implementation soon
  *    - app_main()
  *
  * NOTES:
@@ -46,6 +53,9 @@
 #include "common_variable_handler.h"
 #include "wifi_handler.h"
 #include "thingsboard_interface.h"
+#include "display_ssd1306.h"
+#include "led_ws2812.h"
+#include "nvs_storage.h"
 
 #include "sdkconfig.h"
 
@@ -355,10 +365,109 @@ void uart_task(void *pvParameter) {
     free(data);
 }
 
-void test_network_task(void *pvParameter) {
 
+//############################################---DISPLAY---#####################################################//
+void display_task(void *pvParameters)
+{
+    while (1) {
+        activate_display();
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
 }
 
+
+//############################################---LED---#####################################################//
+#include "led_strip.h"
+//#include "led_ws2812.h"
+
+// GPIO assignment
+#define LED_STRIP_GPIO_PIN  5
+// Numbers of the LED in the strip
+#define LED_STRIP_LED_COUNT 1
+
+static const char *TAG_LED = "LED";
+bool led_on_off = false;
+
+led_strip_handle_t configure_led(void)
+{
+    ESP_LOGI(TAG_LED, "Start configuration LED strip");
+    // LED strip general initialization, according to your led board design
+    led_strip_config_t strip_config = {
+        .strip_gpio_num = LED_STRIP_GPIO_PIN, // The GPIO that connected to the LED strip's data line
+        .max_leds = LED_STRIP_LED_COUNT,      // The number of LEDs in the strip,
+        .led_model = LED_MODEL_WS2812,        // LED strip model
+        // set the color order of the strip: GRB
+        .color_component_format = {
+            .format = {
+                .r_pos = 1, // red is the second byte in the color data
+                .g_pos = 0, // green is the first byte in the color data
+                .b_pos = 2, // blue is the third byte in the color data
+                .num_components = 3, // total 3 color components
+            },
+        },
+        .flags = {
+            .invert_out = false, // don't invert the output signal
+        }
+    };
+
+    // LED strip backend configuration: SPI
+    led_strip_spi_config_t spi_config = {
+        .clk_src = SPI_CLK_SRC_DEFAULT, // different clock source can lead to different power consumption
+        .spi_bus = SPI2_HOST,           // SPI bus ID
+        .flags = {
+            .with_dma = true, // Using DMA can improve performance and help drive more LEDs
+        }
+    };
+
+    // LED Strip object handle
+    led_strip_handle_t led_strip;
+    ESP_ERROR_CHECK(led_strip_new_spi_device(&strip_config, &spi_config, &led_strip));
+    ESP_LOGI(TAG_LED, "Created LED strip object with SPI backend");
+    return led_strip;
+}
+
+
+void ws2812_task(void *pvParameters)
+{
+    ESP_LOGI(TAG_LED, "Start blinking LED strip");
+    //xTaskCreatePinnedToCore(ws2812_task,"led_task",4096,NULL,5,NULL,1);
+    led_strip_handle_t led_strip = configure_led();
+    bool led_on_off = false;
+    ESP_LOGI(TAG_LED, "Start blinking LED strip");
+    while (1) {
+        if (led_on_off) {
+            /* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color */
+            for (int i = 0; i < LED_STRIP_LED_COUNT; i++) {
+                //green
+                //ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, i, 0, 153, 0));
+
+                //red
+                //ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, i, 204, 0, 0));
+
+                //blue
+                ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, i, 0, 0, 102));
+
+            }
+            /* Refresh the strip to send data */
+            ESP_ERROR_CHECK(led_strip_refresh(led_strip));
+            ESP_LOGI(TAG_LED, "LED ON!");
+        } else {
+            /* Set all LED off to clear all pixels */
+            ESP_ERROR_CHECK(led_strip_clear(led_strip));
+            ESP_LOGI(TAG_LED, "LED OFF!");
+        }
+        led_on_off = !led_on_off;
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
+
+}
+//############################################---NVS---#####################################################//
+void nvs_task(void *pvParameters)
+{
+     while (1){
+         inti_nvs_storage();
+         }
+}
 
 //############################################---MAIN---#####################################################//
 extern "C" void app_main() {
@@ -374,6 +483,13 @@ extern "C" void app_main() {
     ESP_ERROR_CHECK(esp_netif_init());
     vTaskDelay(50 / portTICK_PERIOD_MS);
     ESP_ERROR_CHECK(esp_event_loop_create_default());
+    vTaskDelay(50 / portTICK_PERIOD_MS);
+
+    xTaskCreatePinnedToCore(display_task, "display_task", 4096, NULL, 5, NULL, 1);
+    vTaskDelay(50 / portTICK_PERIOD_MS);
+    xTaskCreatePinnedToCore(ws2812_task, "ws2812_task", 4096, NULL, 5, NULL, 1);
+    vTaskDelay(50 / portTICK_PERIOD_MS);
+    xTaskCreatePinnedToCore(nvs_task, "nvs_task", 4096, NULL, 5, NULL, 1);
     vTaskDelay(50 / portTICK_PERIOD_MS);
 
 

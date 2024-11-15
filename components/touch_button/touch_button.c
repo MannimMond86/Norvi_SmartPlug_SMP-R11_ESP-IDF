@@ -26,6 +26,18 @@
  ***********************************************************************************************/
 
 #include <stdio.h>
+#include "esp_log.h"
+#include "driver/touch_pad.h"
 #include "touch_button.h"
 #include "sdkconfig.h"
 
+#define TOUCH_PIN_NUM 13 // Replace with your touch pin number
+#define TOUCH_THRESHOLD 1000 // Adjust threshold as needed
+
+void touch_button_init(void){
+
+}
+
+void touch_button_read(void){
+
+}
